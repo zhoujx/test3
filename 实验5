@@ -1,0 +1,69 @@
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<malloc.h>
+struct node
+{
+	int num;
+	float sorce;
+	struct node* next;
+	struct node* score;
+};
+int main()
+{
+	struct node* pl = create();
+	show(pl);
+	pl = dele(pl, 3);
+	show(pl);
+	return 0;
+}
+struct node* create1()
+{
+	struct node* head = NULL, * new1, * tail;
+	int count = 0;
+	new1 = tail = (struct node*)malloc(sizeof(struct node));
+	scanf("%d%f", &new1->num, &new1->sorce);
+	while ((new1->num) != 0)
+	{
+		count++;
+		if (count == 1)
+			head = new1;
+		else
+			tail->next = new1;
+		tail = new1;
+		new1 = (struct node*)malloc(sizeof(struct node));
+		scanf("%d%f", &new1->num, &new1->sorce);
+	}
+	tail->next = NULL;
+	return(head);
+}
+void show1(struct node* head)
+{
+	struct node* p;
+	p = head;
+	while (p->next != NULL)
+	{
+		printf("%d %f\n", p->num, p->score);
+		p = p->next;
+	}
+	printf("%d%f\n", p->num, p->score);
+}
+struct node* dele1(struct node* head, int num)
+{
+	struct node* pf, * pb;
+	pb = head;
+	while (pb->num != num && pb->next != NULL)
+	{
+		pf = pb;
+		pb = pb->next;
+	}
+	if (pb->num == num)
+	{
+		if (pb == head)
+			head = pb->next;
+	}
+	else
+		pf->next = pb->next;
+	free(pb);
+	printf("the node is deleted\n");
+	return head;
+}
